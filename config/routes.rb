@@ -1,21 +1,39 @@
 SampleApp::Application.routes.draw do
-  resources :users do
+
+  resources :users, except: [:index, :create, :show, :destroy, :update, :edit, :new] do
     member do
-      get :following, :followers
+      get  :display, :edit_member, :following, :followers
+      post :update_member
+      delete :destroy_member
+    end
+    collection do
+      get :new_member, :list
+      post :create_member
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+
   get "users/new"
   root 'static_pages#home'
-  match '/signup', to: 'users#new', via: [:get]
+
+  match '/signup', to: 'users#new_member', via: [:get]
   match '/help',  to: 'static_pages#help', via: [:get]
   match '/about', to: 'static_pages#about', via: [:get]
   match '/contact', to: 'static_pages#contact', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:delete]
-  
+
+#  get "members" => 'users#list', as: :members
+#  get "members/:id" => 'users#display', as: :member
+#  get "members/new" => 'users#new_member', as: :new_member
+#  get "members/:id/edit" => 'users#edit_member', as: :edit_member
+#  patch "/members/:id" => 'users#update_member'
+#  put "/members/:id" => 'users#update_member'
+#  delete "members/:id" => 'users#destroy_member'
+#  post "members" => 'users#create_member'
+
   get "static_pages/contact"
   get "static_pages/about"
   get "static_pages/home"

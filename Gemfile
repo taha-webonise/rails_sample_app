@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
-#ruby-gemset=rialstutorial_rails_4
+#ruby-gemset=sample_app
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.8'
@@ -38,7 +38,7 @@ group :doc do
 end
 
 group :production do
-  gem 'pg'
+#  gem 'pg'
   gem 'rails_12factor'
 end
 
